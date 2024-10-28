@@ -1,7 +1,23 @@
-import { Elysia } from "elysia";
+import { Elysia } from 'elysia';
+import { registerActor } from './actors/dogfight/dogfight.actor.init';
+import { dogBark } from './actors/dogfight/dogfight.service';
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+(async () => {
+  const app = new Elysia();
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+  app.get('/actors', () => {
+    try {
+      console.log('getting actors ' + Date.now());
+      return dogBark();
+    } catch (error) {
+      console.log('error getting actors' + Date.now() + '' + error);
+    }
+  });
+
+  await registerActor();
+  app.listen(3000);
+
+  console.log(
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  );
+})();

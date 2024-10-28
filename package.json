@@ -3,9 +3,12 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "dapr": "dapr run --app-id elysia-app --app-port 3099 --dapr-http-port 3500 npm run dev"
   },
   "dependencies": {
+    "@dapr/dapr": "^3.4.1",
+    "app": "file:",
     "elysia": "latest"
   },
   "devDependencies": {
